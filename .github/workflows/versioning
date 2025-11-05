@@ -1,0 +1,28 @@
+name: Create Release
+on:
+ pull_request:
+   types:
+     - closed
+jobs:
+ deploy:
+   if: github.event.pull_request.merged == true
+   runs-on: ubuntu-latest
+   permissions:
+     pull-requests: write
+     contents: write
+   steps:
+     - name: Checkout branch
+       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+     - name: Generate release tag
+       id: generate_release_tag
+       uses: amitsingh-007/next-release-tag@64aa84a4d44eeae401c28ebdcf4afa5d56eba347 #v6.1.0
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         tag_prefix: 'v'
+         tag_template: 'yyyy.mm.dd.i'
+     - name: Create Release
+       uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 #v1.16.0
+       with:
+         tag: ${{ steps.generate_release_tag.outputs.next_release_tag }}
+         generateReleaseNotes: true
+         makeLatest: true

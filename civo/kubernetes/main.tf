@@ -1,7 +1,7 @@
 resource "civo_kubernetes_cluster" "cluster" {
     name = var.cluster_name
     write_kubeconfig = var.write_kubeconfig
-    network_id = var.metwork_id
+    network_id = var.network_id
     firewall_id = var.firewall_id
     kubernetes_version = var.kubernetes_version
     dynamic "pools" {

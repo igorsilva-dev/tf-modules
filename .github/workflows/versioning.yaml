@@ -1,11 +1,14 @@
 name: Create Release
 on:
- pull_request:
-   types:
-     - closed
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
 jobs:
- deploy:
-   if: github.event.pull_request.merged == true
+  deploy:
+   if: github.event_name == 'push' || github.event.pull_request.merged == true
    runs-on: ubuntu-latest
    permissions:
      pull-requests: write

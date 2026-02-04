@@ -24,6 +24,11 @@ variable "pools" {
   ]
 }
 
+variable "applications" {
+    description = "value for the applications to be installed on the cluster"
+  type = string
+}
+
 variable "write_kubeconfig" {
 description = "Whether to write the kubeconfig to a local file"
   type = bool

@@ -17,6 +17,6 @@ resource "civo_kubernetes_cluster" "cluster" {
 
 resource "local_file" "kubeconfig" {
 count    = var.write_kubeconfig ? 1 : 0
-  filename = "/temp/${civo_kubernetes_cluster.cluster.name}-kubeconfig"  # Define the path and file name
+  filename = "/tmp/${civo_kubernetes_cluster.cluster.name}-kubeconfig"  # Define the path and file name
   content  = civo_kubernetes_cluster.cluster.kubeconfig
 }

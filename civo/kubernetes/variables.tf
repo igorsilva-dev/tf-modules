@@ -27,7 +27,7 @@ variable "pools" {
 variable "applications" {
     description = "value for the applications to be installed on the cluster"
   type = string
-  default = ""
+  default = "" 
 }
 
 variable "write_kubeconfig" {

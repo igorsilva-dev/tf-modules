@@ -35,3 +35,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Dependency lock files (not committed for module libraries)
+.terraform.lock.hcl

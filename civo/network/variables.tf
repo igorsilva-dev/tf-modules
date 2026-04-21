@@ -1,6 +1,6 @@
 variable "network_label" {
   description = "Label for the Civo network"
-  type        = string   
+  type        = string
 }
 
 variable "firewall_name" {
@@ -11,6 +11,6 @@ variable "firewall_name" {
 variable "create_default_rules" {
   description = "Whether to create default rules for the firewall"
   type        = bool
-  default     = true  
+  default     = true
 }
 

@@ -6,5 +6,5 @@ output "cluster_name" {
 output "kubeconfig" {
   description = "Kubeconfig content for the created Civo Kubernetes cluster"
   value       = civo_kubernetes_cluster.cluster.kubeconfig
-  sensitive   = true  
+  sensitive   = true
 }

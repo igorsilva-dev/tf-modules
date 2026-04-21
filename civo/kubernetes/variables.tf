@@ -1,15 +1,15 @@
 variable "cluster_name" {
-    description = "value for the name of the Kubernetes cluster"
-  type = string
+  description = "Name of the Civo Kubernetes cluster"
+  type        = string
 }
 
 variable "kubernetes_version" {
-    description = "value for the Kubernetes version"
-  type = string  
+  description = "K3s version to deploy (e.g. 1.32.5-k3s1). Use 'civo k8s versions' to list available versions"
+  type        = string
 }
 
 variable "pools" {
-  description = "List of node pool objects"
+  description = "List of node pools. Each pool requires a label (identifier), size (Civo instance type), and node_count"
   type = list(object({
     label      = string
     size       = string
@@ -17,7 +17,7 @@ variable "pools" {
   }))
   default = [
     {
-      label      = "shop"
+      label      = "default"
       size       = "g4s.kube.xsmall"
       node_count = 1
     }
@@ -25,23 +25,23 @@ variable "pools" {
 }
 
 variable "applications" {
-    description = "value for the applications to be installed on the cluster"
-  type = string
-  default = "" 
+  description = "Comma-separated list of Civo marketplace applications to install on the cluster"
+  type        = string
+  default     = ""
 }
 
 variable "write_kubeconfig" {
-description = "Whether to write the kubeconfig to a local file"
-  type = bool
-  default = false
+  description = "Whether to write the kubeconfig to a local file at /tmp/<cluster-name>-kubeconfig"
+  type        = bool
+  default     = false
 }
 
 variable "network_id" {
-  description = "value for the network ID"
-  type = string
+  description = "ID of the Civo network to attach the cluster to (from the civo/network module)"
+  type        = string
 }
 
 variable "firewall_id" {
-  description = "value for the firewall ID"
-  type = string
+  description = "ID of the Civo firewall to apply to the cluster (from the civo/network module)"
+  type        = string
 }

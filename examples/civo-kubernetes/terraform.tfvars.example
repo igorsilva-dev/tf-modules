@@ -1,0 +1,10 @@
+cluster_name       = "my-cluster"
+kubernetes_version = "1.32.5-k3s1"
+
+pools = [
+  {
+    label      = "worker-pool"
+    size       = "g4s.kube.xsmall"
+    node_count = 2
+  }
+]

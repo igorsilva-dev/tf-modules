@@ -50,10 +50,9 @@ variable "set_values" {
 }
 
 variable "set_sensitive_values" {
-  description = "Map of sensitive values to set via --set flag (values are marked sensitive in state)"
+  description = "Map of sensitive values to set via --set flag (values are marked sensitive in state by the Helm provider)"
   type        = map(string)
   default     = {}
-  sensitive   = true
 }
 
 variable "wait" {

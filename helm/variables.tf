@@ -44,7 +44,13 @@ variable "values" {
 }
 
 variable "set_values" {
-  description = "Map of values to set (can include sensitive values)"
+  description = "Map of individual values to set via --set flag (key = dotted Helm path, value = string)"
+  type        = map(string)
+  default     = {}
+}
+
+variable "set_sensitive_values" {
+  description = "Map of sensitive values to set via --set flag (values are marked sensitive in state by the Helm provider)"
   type        = map(string)
   default     = {}
 }

@@ -4,20 +4,20 @@ Creates three namespaces (`platform`, `agents`, `sandbox`) with service accounts
 
 ## Prerequisites
 
-- [Terraform](https://www.terraform.io/downloads) or [OpenTofu](https://opentofu.org/) installed
+- [OpenTofu](https://opentofu.org/) installed (`tofu` CLI)
 - A running Kubernetes cluster
 - `kubeconfig` configured (default: `~/.kube/config`)
 
 ## Usage
 
 ```bash
-terraform init
-terraform plan
-terraform apply
+tofu init
+tofu plan
+tofu apply
 ```
 
 ## Clean up
 
 ```bash
-terraform destroy
+tofu destroy
 ```

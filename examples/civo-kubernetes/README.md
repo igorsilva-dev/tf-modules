@@ -4,9 +4,10 @@ Provisions a Civo K3s cluster with a dedicated network and firewall using the `c
 
 ## Prerequisites
 
-- [Terraform](https://www.terraform.io/downloads) or [OpenTofu](https://opentofu.org/) installed
+- [OpenTofu](https://opentofu.org/) installed (`tofu` CLI)
 - A Civo account and API token
 - `CIVO_TOKEN` environment variable set
+- Region defaults to `lon1` — override in `providers.tf` if needed
 
 ## Usage
 
@@ -16,13 +17,13 @@ cp terraform.tfvars.example terraform.tfvars
 
 export CIVO_TOKEN="your-civo-api-token"
 
-terraform init
-terraform plan
-terraform apply
+tofu init
+tofu plan
+tofu apply
 ```
 
 ## Clean up
 
 ```bash
-terraform destroy
+tofu destroy
 ```

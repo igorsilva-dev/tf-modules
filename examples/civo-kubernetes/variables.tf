@@ -7,7 +7,7 @@ variable "cluster_name" {
 variable "kubernetes_version" {
   description = "K3s version to deploy"
   type        = string
-  default     = "1.32.5-k3s1"
+  default     = "1.34.2-k3s1"
 }
 
 variable "pools" {

@@ -100,8 +100,26 @@ module "sealed-secrets" {
 | `release_status` | Status of the Helm release |
 | `release_manifest` | Manifest of the deployed Helm release (sensitive) |
 
+## Provider configuration
+
+This module does not configure the `helm` provider itself. The caller is responsible for providing a configured `helm` provider, typically with a `kubernetes` block (`config_path`, or `host` + cert/key, etc.):
+
+```hcl
+provider "helm" {
+  kubernetes {
+    host                   = local.kubeconfig.clusters[0].cluster.server
+    cluster_ca_certificate = base64decode(local.kubeconfig.clusters[0].cluster["certificate-authority-data"])
+    client_certificate     = base64decode(local.kubeconfig.users[0].user["client-certificate-data"])
+    client_key             = base64decode(local.kubeconfig.users[0].user["client-key-data"])
+  }
+}
+```
+
+See `examples/helm-release/providers.tf` for a `config_path` example.
+
 ## Requirements
 
 - Terraform >= 1.0
 - Helm provider >= 2.11
-- Kubernetes cluster with Helm access configured
+- A configured `helm` provider in the calling module
+- Kubernetes cluster with Helm access

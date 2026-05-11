@@ -1,9 +1,3 @@
-variable "kubeconfig_path" {
-  description = "Path to the kubeconfig file for Kubernetes cluster access"
-  type        = string
-  default     = "~/.kube/config"
-}
-
 variable "chart_name" {
   description = "Name of the Helm release"
   type        = string

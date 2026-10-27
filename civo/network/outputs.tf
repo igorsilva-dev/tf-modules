@@ -3,6 +3,11 @@ output "network_id" {
   value       = civo_network.network.id
 }
 
+output "network_cidr" {
+  description = "IPv4 CIDR of the created Civo network"
+  value       = civo_network.network.cidr_v4
+}
+
 output "network_label" {
   description = "Label of the created Civo network"
   value       = civo_network.network.label

@@ -9,7 +9,35 @@ variable "firewall_name" {
 }
 
 variable "create_default_rules" {
-  description = "Whether to create default firewall rules (allow SSH, HTTP, HTTPS inbound)"
+  description = "Whether Civo creates its default firewall rules, which allow ALL TCP/UDP/ICMP inbound and outbound from 0.0.0.0/0. Ignored (forced to false) when ingress_rules or egress_rules is set"
+  type        = bool
+  default     = true
+}
+
+variable "ingress_rules" {
+  description = "Inbound allow rules. Setting this (or egress_rules) replaces Civo's open-everything defaults. port_range is a port or range (\"6443\", \"80-443\"); omit it for icmp"
+  type = list(object({
+    label      = string
+    protocol   = optional(string, "tcp")
+    port_range = optional(string)
+    cidr       = list(string)
+  }))
+  default = null
+}
+
+variable "egress_rules" {
+  description = "Outbound allow rules. When custom rules are in use and this is left null, all outbound TCP/UDP/ICMP is allowed"
+  type = list(object({
+    label      = string
+    protocol   = optional(string, "tcp")
+    port_range = optional(string)
+    cidr       = list(string)
+  }))
+  default = null
+}
+
+variable "allow_internal_traffic" {
+  description = "With custom rules, also allow all inbound traffic from the network's own CIDR (node to node)"
   type        = bool
   default     = true
 }

@@ -4,6 +4,14 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for milestone releases. Day-to-day rolling releases use a `vYYYY.MM.DD.NN` date-based scheme generated automatically on every merge to `main`.
 
+## [Unreleased]
+
+### Added
+- `civo/network`: `ingress_rules`, `egress_rules` and `allow_internal_traffic` for a locked-down firewall. Setting either rule list switches off Civo's defaults; traffic from the network's own CIDR stays allowed (node to node), and outbound defaults to allow-all so a custom firewall can't cut the cluster off. New `network_cidr` output.
+
+### Fixed
+- `civo/network`: the `create_default_rules` description said "SSH, HTTP, HTTPS". Civo's defaults actually open **every** TCP/UDP port and ICMP to `0.0.0.0/0` (seen on `civo-infrastructure`'s `main_firewall`, 2026-10-27).
+
 ## [0.1.0] — 2026-04-29
 
 First milestone release. All Phase 0 modules from the Portfolio Roadmap are functional, documented, and covered by CI.

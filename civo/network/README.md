@@ -16,6 +16,23 @@ module "network" {
 }
 ```
 
+### Locked-down firewall
+
+Civo's default rules (`create_default_rules = true`) allow **all** inbound TCP/UDP/ICMP from `0.0.0.0/0`. Passing `ingress_rules` replaces them: only the listed ports are open from outside, all traffic from the network's own CIDR stays allowed (node to node; turn off with `allow_internal_traffic = false`), and all outbound traffic is allowed unless `egress_rules` says otherwise.
+
+```hcl
+module "network" {
+  source = "git::https://github.com/igorsilva-dev/tf-modules.git//civo/network?ref=<tag>"
+
+  network_label = "my-network"
+  firewall_name = "my-firewall"
+
+  ingress_rules = [
+    { label = "kubernetes-api", port_range = "6443", cidr = ["0.0.0.0/0"] },
+  ]
+}
+```
+
 ### With DNS
 
 ```hcl
@@ -50,7 +67,10 @@ module "network" {
 |------|-------------|------|---------|----------|
 | `network_label` | Label for the Civo network | `string` | — | yes |
 | `firewall_name` | Name for the Civo firewall | `string` | — | yes |
-| `create_default_rules` | Create default firewall rules (SSH, HTTP, HTTPS) | `bool` | `true` | no |
+| `create_default_rules` | Create Civo's default rules: **all** TCP/UDP/ICMP open from `0.0.0.0/0`. Forced to `false` when custom rules are set | `bool` | `true` | no |
+| `ingress_rules` | Inbound allow rules (`label`, `protocol` = tcp, `port_range`, `cidr`). Replaces the defaults | `list(object)` | `null` | no |
+| `egress_rules` | Outbound allow rules. With custom rules and `null`, all outbound is allowed | `list(object)` | `null` | no |
+| `allow_internal_traffic` | With custom rules, allow everything from the network's own CIDR | `bool` | `true` | no |
 | `dns_domain` | DNS domain to register (leave empty to skip) | `string` | `""` | no |
 | `dns_records` | List of DNS records (type, name, value, ttl) | `list(object)` | `[]` | no |
 
@@ -58,6 +78,7 @@ module "network" {
 
 | Name | Description |
 |------|-------------|
+| `network_cidr` | IPv4 CIDR of the network |
 | `network_id` | ID of the created network |
 | `network_label` | Label of the created network |
 | `firewall_id` | ID of the created firewall |
